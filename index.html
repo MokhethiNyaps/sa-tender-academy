@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SA Tender Academy — 90-Day Study Programme</title>
+<meta name="description" content="A 90-day self-paced apprenticeship for South African public-procurement tender response specialists, with a construction/CIDB track.">
+<meta name="theme-color" content="#0f3b2e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f3b2e'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23e8c56a' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f3b2e'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23e8c56a' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button class="iconbtn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+  <a class="brand" href="#/overview">
+    <span class="brand-mark">T</span>
+    <span class="brand-text">
+      <strong>SA Tender Academy</strong>
+      <small>90-day tender-response apprenticeship</small>
+    </span>
+  </a>
+  <div class="topbar-spacer"></div>
+  <div class="searchwrap">
+    <svg class="searchicon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    <input id="search" type="search" placeholder="Search all material…  (press /)" autocomplete="off" aria-label="Search study material">
+    <div id="results" class="results" hidden role="listbox"></div>
+  </div>
+  <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="ico-moon"><path d="M21 13A9 9 0 1111 3a7 7 0 1010 10z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" class="ico-sun"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+  </button>
+</header>
+
+<div class="shell">
+
+  <nav class="sidebar" id="sidebar" aria-label="Course navigation">
+    <div class="progress-card">
+      <div class="progress-head">
+        <span>Course progress</span>
+        <strong id="progressPct">0%</strong>
+      </div>
+      <div class="bar"><div class="bar-fill" id="progressBar" style="width:0%"></div></div>
+      <div class="progress-sub"><span id="progressText">0 of 13 lessons complete</span></div>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">Programme</div>
+      <ul id="navGuidesTop" class="navlist"></ul>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">12-week curriculum</div>
+      <ul id="navLessons" class="navlist"></ul>
+    </div>
+
+    <div class="navgroup">
+      <div class="navgroup-title">Reference</div>
+      <ul id="navGuidesBottom" class="navlist"></ul>
+      <ul class="navlist">
+        <li><a href="#/templates" data-route="templates"><span class="np"></span><span class="nt">Templates &amp; tools</span></a></li>
+        <li><a href="#/tracker" data-route="tracker"><span class="np"></span><span class="nt">Tender log &amp; tracker</span></a></li>
+        <li><a href="#/drills" data-route="drills"><span class="np"></span><span class="nt">AI drill prompts</span></a></li>
+        <li><a href="#/library" data-route="library"><span class="np"></span><span class="nt">Resource library</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidefoot">
+      <button class="ghostbtn" id="resetBtn">Reset my progress</button>
+      <p class="tiny">Progress, notes and your tender log are stored in this browser only (localStorage). Export from the Tracker page to keep a copy.</p>
+    </div>
+  </nav>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main id="main" class="main" tabindex="-1"></main>
+
+</div>
+
+<script src="content.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

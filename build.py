@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""Build script for the SA Tender Academy study app.
+
+Reads the markdown/CSV source files in this folder and emits `content.js`,
+a single JavaScript file containing all study material. Embedding the content
+(rather than fetching it at runtime) means the app works offline, works from
+file://, and works inside sandboxed preview iframes with no network.
+
+Run:  python3 build.py
+"""
+
+import json
+import os
+import re
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+LESSONS = [
+    ("week-00-orientation.md", "Week 0", "Orientation"),
+    ("week-01-tender-anatomy.md", "Week 1", "Anatomy of a SA Tender"),
+    ("week-02-supplier-compliance.md", "Week 2", "Supplier Compliance"),
+    ("week-03-preferential-procurement.md", "Week 3", "Preferential Procurement"),
+    ("week-04-proposal-writing.md", "Week 4", "Proposal Writing"),
+    ("week-05-cidb-fundamentals.md", "Week 5", "CIDB Fundamentals"),
+    ("week-06-cidb-eligibility-jv.md", "Week 6", "CIDB Eligibility & JVs"),
+    ("week-07-construction-doc-anatomy.md", "Week 7", "Construction Doc Anatomy"),
+    ("week-08-boq-pricing.md", "Week 8", "BOQs & Pricing"),
+    ("week-09-method-statements.md", "Week 9", "Method Statements"),
+    ("week-10-construction-compliance.md", "Week 10", "Construction Compliance"),
+    ("week-11-qa-red-team.md", "Week 11", "QA & Red-Team Review"),
+    ("week-12-simulated-bids.md", "Week 12", "Simulated Live Bids"),
+]
+
+TEMPLATES = [
+    ("compliance-matrix.csv", "Compliance Matrix", "The core artefact. One row per requirement, clause reference on every line."),
+    ("tender-intake-checklist.md", "Tender Intake Checklist", "Stage 1 of the pipeline. 15 minutes, every pack."),
+    ("eligibility-determination.md", "Eligibility Determination", "The written go/no-go gate. Nothing asserted without a source."),
+    ("go-no-go-checklist.md", "Go / No-Go Checklist", "Run twice: before drafting and after the matrix."),
+    ("method-statement.md", "Method Statement", "Per-activity construction methodology structure."),
+    ("risk-register.csv", "Risk Register", "Pre-seeded with realistic construction risks."),
+    ("cv-template.md", "CV Template", "Format every CV identically; match the tender's fields exactly."),
+    ("experience-sheet.md", "Experience Schedule", "The Relevance column is the one evaluators read."),
+    ("red-team-checklist.md", "Red-Team Checklist", "Run on a different day from drafting. Try to disqualify the bid."),
+    ("submission-checklist.md", "Final Submission Checklist", "72 hours / 24 hours / at submission / after."),
+]
+
+
+def read(path):
+    with open(os.path.join(ROOT, path), encoding="utf-8") as fh:
+        return fh.read()
+
+
+def slugify(text):
+    text = re.sub(r"[^\w\s-]", "", text.lower()).strip()
+    return re.sub(r"[\s_]+", "-", text)
+
+
+def headings(markdown):
+    """Extract ## level headings for in-page navigation."""
+    out = []
+    in_fence = False
+    for line in markdown.split("\n"):
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        m = re.match(r"^##\s+(.*)$", line)
+        if m:
+            title = re.sub(r"[*`]", "", m.group(1)).strip()
+            out.append({"title": title, "id": slugify(title)})
+    return out
+
+
+def build():
+    docs = []
+
+    overview = read("README.md")
+    docs.append({
+        "id": "overview",
+        "kind": "guide",
+        "label": "Programme Overview",
+        "sub": "Start here",
+        "title": "SA Tender Academy — 90-Day Programme",
+        "file": "README.md",
+        "body": overview,
+        "toc": headings(overview),
+    })
+
+    for filename, label, sub in LESSONS:
+        body = read(os.path.join("lessons", filename))
+        docs.append({
+            "id": filename.replace(".md", ""),
+            "kind": "lesson",
+            "label": label,
+            "sub": sub,
+            "title": f"{label} — {sub}",
+            "file": f"lessons/{filename}",
+            "body": body,
+            "toc": headings(body),
+        })
+
+    bible = read("TENDER-BIBLE.md")
+    docs.append({
+        "id": "tender-bible",
+        "kind": "guide",
+        "label": "The Tender Bible",
+        "sub": "Your knowledge asset",
+        "title": "The Tender Bible",
+        "file": "TENDER-BIBLE.md",
+        "body": bible,
+        "toc": headings(bible),
+    })
+
+    templates = []
+    for filename, title, blurb in TEMPLATES:
+        raw = read(os.path.join("templates", filename))
+        templates.append({
+            "id": filename.rsplit(".", 1)[0],
+            "file": f"templates/{filename}",
+            "filename": filename,
+            "format": filename.rsplit(".", 1)[1],
+            "title": title,
+            "blurb": blurb,
+            "body": raw,
+        })
+
+    payload = {
+        "generated": True,
+        "docs": docs,
+        "templates": templates,
+    }
+
+    js = (
+        "/* AUTO-GENERATED by build.py — do not edit by hand.\n"
+        "   Edit the markdown sources and re-run: python3 build.py */\n"
+        "window.ACADEMY = "
+        + json.dumps(payload, ensure_ascii=False, indent=1)
+        + ";\n"
+    )
+
+    out = os.path.join(ROOT, "content.js")
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write(js)
+
+    size = os.path.getsize(out) / 1024
+    print(f"Wrote content.js — {len(docs)} documents, {len(templates)} templates, {size:.0f} KB")
+
+
+if __name__ == "__main__":
+    build()
