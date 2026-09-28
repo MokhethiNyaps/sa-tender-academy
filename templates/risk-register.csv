@@ -1,0 +1,6 @@
+#,Risk,Cause,Consequence,Likelihood (1-5),Impact (1-5),Rating,Mitigation,Owner,Residual rating,Trigger/early warning
+1,Underground services strike,Incomplete as-built records,Injury; delay; repair cost; penalties,3,5,15,Service location survey and hand-excavation in service corridors; utility liaison before works,Site Agent,6,Any unmarked service encountered
+2,Adverse weather,Rain season overlap with layerworks,Lost working days; material damage,4,3,12,Weather allowance in programme; sequence weather-sensitive work early; protect layers,Site Agent,6,3 consecutive rain days
+3,Material supply delay,Single supplier dependency,Standing time; delay,3,4,12,Dual-source key materials; confirm lead times before order,Procurement,6,Lead time quote exceeds baseline
+4,Community disruption,Local expectations on labour/subcontracting,Work stoppage,3,4,12,Early community liaison; local labour plan per tender requirements,Contracts Manager,6,Community meeting requests
+5,Traffic/public safety incident,Live traffic adjacent to works,Injury; stoppage; reputational,3,5,15,Approved traffic accommodation plan; signage; flagmen; daily inspection,Safety Officer,5,Near-miss reported

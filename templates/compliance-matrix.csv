@@ -1,0 +1,13 @@
+#,Requirement,Type,Mandatory?,Tender reference,Evidence needed,Client has it?,Action,Owner,Due (D-minus),Status
+1,CSD registration,Admin,Yes (disqualifying),Clause 4.2,CSD report (recent),Yes,Verify currency and commodities,Me,D-10,Open
+2,Tax compliance status,Admin,Yes (disqualifying),Clause 4.3,SARS Good Standing PIN,Unknown,Request PIN and verify,Client,D-12,Open
+3,CIDB grading designation,Eligibility,Yes (disqualifying),Advertisement,Register verification printout,Yes,Verify active status,Me,D-14,Open
+4,B-BBEE evidence,Preference,Scored,SBD/MBD 6.1,Affidavit or verification certificate,Partial,Confirm correct type per clause,Client,D-10,Open
+5,Declaration of interest,Admin,Yes (disqualifying),SBD 4,Signed and dated form,No,Client signature by authorised signatory,Client,D-4,Open
+6,Similar experience,Technical,Scored,Clause 7.1,Completion / reference letters,Partial,Request 2 letters,Client,D-12,Open
+7,Key personnel,Technical,Scored,Clause 7.2,CVs + qualifications + registrations,Partial,Compile and format,Me,D-8,Open
+8,Methodology,Technical,Scored,Clause 7.3,Written response,No,Draft after contractor interview,Me,D-7,Open
+9,Programme,Technical,Scored,Clause 7.4,Gantt + narrative,No,Draft with contractor,Me/Client,D-7,Open
+10,Priced BOQ,Commercial,Yes (disqualifying),Annexure C,Fully priced schedule,No,Contractor/QS to price; I audit,Client/QS,D-5,Open
+11,Letter of Good Standing (COIDA),Compliance,Yes (disqualifying),Returnables list,Valid LoGS,Unknown,Check expiry vs award date,Client,D-14,Open
+12,Compulsory briefing attendance,Eligibility,Yes (disqualifying),Advertisement,Signed attendance certificate,No,Diarise and attend,Client,Briefing date,Open
