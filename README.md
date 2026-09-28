@@ -2,6 +2,59 @@
 
 A structured, self-paced apprenticeship that turns you into a **tender-response specialist** for South African public procurement, with a strong construction/contractor track.
 
+> 📱 **Study anywhere:** this repository is also a self-contained web app. See [Study app](#0-study-app) below.
+
+---
+
+## 0. Study app
+
+The whole programme is wrapped in a zero-dependency web app you can host for free and use on a phone, tablet or laptop — online or offline.
+
+**Features**
+- All 13 lessons, the Tender Bible and the programme overview, rendered and searchable
+- Full-text search across every lesson and template (press `/`)
+- Progress tracking, per-lesson notes and tickable checklists (saved in your browser)
+- A **tender log** with the volume targets built in (40–60 packs; 20 before your first client, 10 of them construction) and CSV/JSON export
+- All 10 templates — preview, copy to clipboard or download
+- Every AI drill prompt in one place, with the five ground rules pinned
+- The complete official resource library with the 2026 regulatory-transition warning
+- Dark mode, printable lessons, installable as a PWA, works fully offline
+
+**Run it locally**
+
+```bash
+python3 -m http.server 8080      # then open http://localhost:8080
+```
+
+Opening `index.html` directly from the file system also works (the offline service worker is simply skipped).
+
+**Host it on GitHub Pages**
+
+**Settings → Pages → Source: *Deploy from a branch* → branch `master`, folder `/ (root)` → Save.**
+
+That is all that is required — the app is plain static files and `.nojekyll` is already committed, so Pages serves everything verbatim.
+
+*Optional:* if you would rather have `content.js` rebuilt automatically on every push, add a GitHub Actions workflow that runs `python3 build.py` and publishes with `actions/upload-pages-artifact`, then switch the Pages source to *GitHub Actions*. (Creating workflow files requires a token with the `workflow` scope, so add it through the GitHub web UI.) It is not needed for normal use — just run `python3 build.py` before you commit.
+
+Your site will be at `https://mokhethinyaps.github.io/sa-tender-academy/`. Open it once on your phone and use **Add to Home Screen** for an offline, app-like copy.
+
+**Editing the material**
+
+The markdown files remain the single source of truth. After editing any lesson, template or the Tender Bible:
+
+```bash
+python3 build.py     # regenerates content.js
+```
+
+| File | Purpose |
+|---|---|
+| `index.html` | App shell |
+| `styles.css` | Styling, dark mode, print and responsive rules |
+| `app.js` | Router, markdown renderer, search, progress, tracker |
+| `build.py` | Bundles the markdown/CSV sources into `content.js` |
+| `content.js` | Generated — do not edit by hand |
+| `sw.js`, `manifest.webmanifest` | Offline support and PWA install |
+
 ---
 
 ## 1. What this programme is (and is not)
